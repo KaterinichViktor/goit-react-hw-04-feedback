@@ -5,16 +5,26 @@ import Statistics from './Statistics';
 import Notification from './Notification';
 
 const App = () => {
-  const [feedback, setFeedback] = useState({ good: 0, neutral: 0, bad: 0 });
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
   const handleFeedback = (type) => {
-    setFeedback((prevFeedback) => ({
-      ...prevFeedback,
-      [type]: prevFeedback[type] + 1,
-    }));
+    switch (type) {
+      case 'good':
+        setGood((prevGood) => prevGood + 1);
+        break;
+      case 'neutral':
+        setNeutral((prevNeutral) => prevNeutral + 1);
+        break;
+      case 'bad':
+        setBad((prevBad) => prevBad + 1);
+        break;
+      default:
+        break;
+    }
   };
 
-  const { good, neutral, bad } = feedback;
   const total = good + neutral + bad;
   const positivePercentage = total > 0 ? Math.round((good / total) * 100) : 0;
   const options = ['good', 'neutral', 'bad'];
